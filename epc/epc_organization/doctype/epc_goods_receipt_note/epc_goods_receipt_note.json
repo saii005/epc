@@ -1,0 +1,143 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "GRN-.YYYY.-.#####",
+ "creation": "2026-08-31 15:35:11.121150",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_ancf",
+  "amended_from",
+  "project",
+  "purchase_order",
+  "vendor",
+  "receipt_date",
+  "challan_no",
+  "received_by",
+  "sb_items",
+  "items",
+  "sb_qc",
+  "qc_passed",
+  "qc_notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_ancf",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "EPC Goods Receipt Note",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Project",
+   "options": "EPC Project",
+   "reqd": 1
+  },
+  {
+   "fieldname": "purchase_order",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Purchase Order",
+   "options": "EPC Purchase Order",
+   "reqd": 1
+  },
+  {
+   "fieldname": "vendor",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Vendor",
+   "options": "EPC Vendor",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "receipt_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Receipt Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "challan_no",
+   "fieldtype": "Data",
+   "label": "Delivery Challan / Invoice No",
+   "reqd": 1
+  },
+  {
+   "fieldname": "received_by",
+   "fieldtype": "Link",
+   "label": "Received By",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sb_items",
+   "fieldtype": "Section Break",
+   "label": "Received Materials Inspection"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "EPC GRN Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sb_qc",
+   "fieldtype": "Section Break",
+   "label": " Quality Inspection Remarks"
+  },
+  {
+   "default": "1",
+   "fieldname": "qc_passed",
+   "fieldtype": "Check",
+   "label": "QC Passed"
+  },
+  {
+   "fieldname": "qc_notes",
+   "fieldtype": "Small Text",
+   "label": "Inspection Notes"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-08-31 16:10:38.100092",
+ "modified_by": "Administrator",
+ "module": "EPC Organization",
+ "name": "EPC Goods Receipt Note",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

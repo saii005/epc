@@ -1,0 +1,152 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "RA-.YYYY.-.#####",
+ "creation": "2026-08-31 16:28:17.240589",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_pxs4",
+  "amended_from",
+  "project",
+  "bill_title",
+  "posting_date",
+  "sb_items",
+  "items",
+  "sb_deductions",
+  "gross_amount",
+  "retention_percent",
+  "retention_amount",
+  "cb_tax",
+  "tax_percent",
+  "tax_amount",
+  "net_payable"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_pxs4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "EPC Running Account Bill",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Project",
+   "options": "EPC Project",
+   "reqd": 1
+  },
+  {
+   "fieldname": "bill_title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Bill Number / Title",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sb_items",
+   "fieldtype": "Section Break",
+   "label": "Milestone & Work Progress Claims"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Billed Items",
+   "options": "EPC Billing Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sb_deductions",
+   "fieldtype": "Section Break",
+   "label": "Commercials & Retentions"
+  },
+  {
+   "fieldname": "gross_amount",
+   "fieldtype": "Currency",
+   "label": "Gross Claim Amount",
+   "read_only": 1
+  },
+  {
+   "default": "5",
+   "fieldname": "retention_percent",
+   "fieldtype": "Percent",
+   "label": "Retention Deduction (%)"
+  },
+  {
+   "fieldname": "retention_amount",
+   "fieldtype": "Currency",
+   "label": "Retention Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_tax",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "18",
+   "fieldname": "tax_percent",
+   "fieldtype": "Percent",
+   "label": "Tax Rate (%)"
+  },
+  {
+   "fieldname": "tax_amount",
+   "fieldtype": "Currency",
+   "label": "Total Tax Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "net_payable",
+   "fieldtype": "Currency",
+   "label": "Net Payable by Client",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-08-31 16:34:00.443421",
+ "modified_by": "Administrator",
+ "module": "EPC Organization",
+ "name": "EPC Running Account Bill",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

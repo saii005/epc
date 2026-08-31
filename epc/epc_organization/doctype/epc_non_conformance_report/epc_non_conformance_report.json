@@ -1,0 +1,169 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "NCR-.YYYY.-.#####",
+ "creation": "2026-08-31 16:11:49.974344",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "amended_from",
+  "project",
+  "wbs_element",
+  "raised_date",
+  "raised_by",
+  "severity",
+  "select",
+  "sb_defect",
+  "defect_description",
+  "responsible_vendor",
+  "sb_action",
+  "root_cause",
+  "corrective_action",
+  "target_closure_date",
+  "sb_closure",
+  "closed_by",
+  "closure_date"
+ ],
+ "fields": [
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "EPC Non Conformance Report",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Project",
+   "options": "EPC Project",
+   "reqd": 1
+  },
+  {
+   "fieldname": "wbs_element",
+   "fieldtype": "Link",
+   "label": "WBS Element",
+   "options": "EPC WBS Element"
+  },
+  {
+   "default": "Today",
+   "fieldname": "raised_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date Raised",
+   "reqd": 1
+  },
+  {
+   "fieldname": "raised_by",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Raised By (QA/QC Inspector)",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "severity",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Severity",
+   "options": "MinorMajorCritical",
+   "reqd": 1
+  },
+  {
+   "fieldname": "select",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Open\nUnderReview\nCorrective Action\nProposed\nResolved & Closed",
+   "reqd": 1,
+   "sort_options": 1
+  },
+  {
+   "fieldname": "sb_defect",
+   "fieldtype": "Section Break",
+   "label": "Defect Details"
+  },
+  {
+   "fieldname": "defect_description",
+   "fieldtype": "Text Editor",
+   "label": "Defect / Non-Conformance Description",
+   "reqd": 1
+  },
+  {
+   "fieldname": "responsible_vendor",
+   "fieldtype": "Link",
+   "label": "Responsible Contractor / Vendor",
+   "options": "EPC Vendor"
+  },
+  {
+   "fieldname": "sb_action",
+   "fieldtype": "Section Break",
+   "label": "Corrective & Preventive Action (CAPA)"
+  },
+  {
+   "fieldname": "root_cause",
+   "fieldtype": "Small Text",
+   "label": "Root Cause Analysis"
+  },
+  {
+   "fieldname": "corrective_action",
+   "fieldtype": "Small Text",
+   "label": "Corrective Action Plan"
+  },
+  {
+   "fieldname": "target_closure_date",
+   "fieldtype": "Date",
+   "label": "Target Closure Date"
+  },
+  {
+   "fieldname": "sb_closure",
+   "fieldtype": "Section Break",
+   "label": "Closure Sign-Off"
+  },
+  {
+   "fieldname": "closed_by",
+   "fieldtype": "Link",
+   "label": "Closed By (QA Lead)",
+   "options": "User"
+  },
+  {
+   "fieldname": "closure_date",
+   "fieldtype": "Date",
+   "label": "Closure Date"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-08-31 16:18:01.403535",
+ "modified_by": "Administrator",
+ "module": "EPC Organization",
+ "name": "EPC Non Conformance Report",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

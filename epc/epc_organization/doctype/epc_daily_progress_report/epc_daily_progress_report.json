@@ -1,0 +1,161 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "DPR-.YYYY.-.#####",
+ "creation": "2026-08-31 14:42:33.080531",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "project",
+  "amended_from",
+  "report_date",
+  "prepared_by",
+  "weather",
+  "sb_manpower",
+  "skilled_labor",
+  "unskilled_labor",
+  "cb_staff",
+  "subcon_labor",
+  "total_staff",
+  "sb_activities",
+  "activities",
+  "sb_safety",
+  "safety_incident",
+  "site_obstacles"
+ ],
+ "fields": [
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "EPC Daily Progress Report",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Project",
+   "options": "EPC Project",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "report_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Report Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "prepared_by",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Site Engineer / Prepared By",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "weather",
+   "fieldtype": "Select",
+   "label": "Weather Condition",
+   "options": "Sunny\nClear\nRainy\nWindy\nStormy\nExtreme Heat",
+   "sort_options": 1
+  },
+  {
+   "fieldname": "sb_manpower",
+   "fieldtype": "Section Break",
+   "label": "Site Manpower"
+  },
+  {
+   "default": "0",
+   "fieldname": "skilled_labor",
+   "fieldtype": "Int",
+   "label": "Total Skilled Labor"
+  },
+  {
+   "default": "0",
+   "fieldname": "unskilled_labor",
+   "fieldtype": "Int",
+   "label": "Total Unskilled Labor"
+  },
+  {
+   "fieldname": "cb_staff",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0\n",
+   "fieldname": "subcon_labor",
+   "fieldtype": "Int",
+   "label": "Subcontractor Labor"
+  },
+  {
+   "fieldname": "total_staff",
+   "fieldtype": "Int",
+   "label": "Total Site Staff",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_activities",
+   "fieldtype": "Section Break",
+   "label": "Executed Activities"
+  },
+  {
+   "fieldname": "activities",
+   "fieldtype": "Table",
+   "label": "Activities",
+   "options": "EPC DPR Activity",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sb_safety",
+   "fieldtype": "Section Break",
+   "label": "HSE & Site Issues"
+  },
+  {
+   "default": "0",
+   "fieldname": "safety_incident",
+   "fieldtype": "Check",
+   "label": "Safety Incident Occurred"
+  },
+  {
+   "fieldname": "site_obstacles",
+   "fieldtype": "Text",
+   "label": "Site Obstacles / Delays"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-08-31 14:49:49.692872",
+ "modified_by": "Administrator",
+ "module": "EPC Organization",
+ "name": "EPC Daily Progress Report",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,75 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "creation": "2026-08-31 14:38:58.428415",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "wbs_element",
+  "activity_description",
+  "uom",
+  "planned_qty",
+  "achieved_qty",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "wbs_element",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "WBS Element",
+   "options": "EPC WBS Element",
+   "reqd": 1
+  },
+  {
+   "fieldname": "activity_description",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Activity Description"
+  },
+  {
+   "fieldname": "uom",
+   "fieldtype": "Select",
+   "label": "UOM",
+   "options": "Nos\nMtrSq\nMtrCu\nMtr\nMT\nKg",
+   "sort_options": 1
+  },
+  {
+   "default": "0\n",
+   "fieldname": "planned_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Planned Qty Today"
+  },
+  {
+   "default": "0",
+   "fieldname": "achieved_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Achieved Qty Today",
+   "reqd": 1
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Data",
+   "label": "Remarks / Obstacles"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-08-31 14:42:06.057155",
+ "modified_by": "Administrator",
+ "module": "EPC Organization",
+ "name": "EPC DPR Activity",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
