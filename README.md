@@ -1,40 +1,23 @@
-### EPC
+# EPC ERP Management System
 
-epc management
+A comprehensive Enterprise Resource Planning (ERP) extension built on the **Frappe Framework** tailored specifically for Engineering, Procurement, and Construction (EPC) projects.
 
-### Installation
+## 🚀 Features
 
-You can install this app using the [bench](https://github.com/frappe/bench) CLI:
+- **Project & WBS Management:** Track multi-phase EPC projects, breakdown work structures (WBS), and manage business units.
+- **Bill of Quantities (BOQ):** Detailed quantity surveying, estimation, and cost tracking.
+- **Procurement & Supply Chain:** Manage Material Requisitions, Purchase Orders (POs), and Goods Receipt Notes (GRNs).
+- **Site Execution:** Daily Progress Reports (DPR), quality tracking, and Non-Conformance Reports (NCR).
+- **Commercial & Billing:** Running Account (RA) bills and subcontractor billing.
 
-```bash
-cd $PATH_TO_YOUR_BENCH
-bench get-app $URL_OF_THIS_REPO --branch min
-bench install-app epc
-```
+## 🛠️ Tech Stack
 
-### Contributing
+- **Backend:** Python, Frappe Framework
+- **Frontend:** Jinja, JavaScript, Bootstrap (Frappe Desk UI)
+- **Database:** MariaDB / MySQL
 
-This app uses `pre-commit` for code formatting and linting. Please [install pre-commit](https://pre-commit.com/#installation) and enable it for this repository:
+## 📦 Installation & Setup
 
-```bash
-cd apps/epc
-pre-commit install
-```
-
-Pre-commit is configured to use the following tools for checking and formatting your code:
-
-- ruff
-- eslint
-- prettier
-- pyupgrade
-### CI
-
-This app can use GitHub Actions for CI. The following workflows are configured:
-
-- CI: Installs this app and runs unit tests on every push to `develop` branch.
-- Linters: Runs [Frappe Semgrep Rules](https://github.com/frappe/semgrep-rules) and [pip-audit](https://pypi.org/project/pip-audit/) on every pull request.
-
-
-### License
-
-mit
+1. Clone the app into your Frappe bench:
+   ```bash
+   bench get-app [https://github.com/saii005/epc.git](https://github.com/saii005/epc.git)
