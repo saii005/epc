@@ -1,0 +1,109 @@
+name: Barista — PR Review
+
+on:
+  pull_request:
+    # Intentionally no `synchronize` — re-reviews on every push were getting
+    # cancelled by the next push. Use `/barista review` in a PR comment to
+    # request a fresh review after pushing fixes.
+    types: [opened, reopened, ready_for_review]
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**'
+      - '.changeset/**'
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: PR number to (re)review
+        required: true
+        type: number
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+concurrency:
+  # Split by trigger source: every PR comment queues an `issue_comment` run
+  # (most then skip the job filter), and it must not cancel an in-flight
+  # review started by the PR itself — a bot's review comment did exactly that.
+  # Manual `/barista review` requests still supersede one another.
+  group: barista-review-${{ github.event_name == 'pull_request' && 'auto' || 'manual' }}-${{ github.event.pull_request.number || github.event.issue.number || inputs.pr_number }}
+  # Cancel in-flight: reviews are stateless (one comment posted at the end), so
+  # the latest `/barista review` request should win. No partial state to lose.
+  cancel-in-progress: true
+
+jobs:
+  review:
+    # Kill switch: set repo variable BARISTA_ENABLED=true to enable.
+    # Skip drafts. Skip fork PRs (no access to bot token by design — keep PR
+    # head out of a privileged context).
+    # Comment-trigger gating: only run on /barista review from maintainers, on PRs.
+    if: >-
+      vars.BARISTA_ENABLED == 'true' && (
+        (
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.state == 'open' &&
+          github.event.pull_request.draft == false &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        ) ||
+        github.event_name == 'workflow_dispatch' ||
+        (
+          github.event_name == 'issue_comment' &&
+          github.event.issue.pull_request != null &&
+          github.event.issue.state == 'open' &&
+          contains(github.event.comment.body, '/barista review') &&
+          (
+            github.event.comment.author_association == 'OWNER' ||
+            github.event.comment.author_association == 'MEMBER' ||
+            github.event.comment.author_association == 'COLLABORATOR'
+          )
+        )
+      )
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Mint barista app token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.BARISTA_APP_ID }}
+          private-key: ${{ secrets.BARISTA_PRIVATE_KEY }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          # History so barista can inspect recent commits near changed files.
+          fetch-depth: 200
+
+      - name: Setup Barista
+        id: setup
+        uses: ./.github/actions/barista-setup
+        with:
+          app-token: ${{ steps.app-token.outputs.token }}
+          dispatch-number: ${{ inputs.pr_number }}
+
+      - name: Run Barista
+        id: run-barista
+        uses: ./.github/actions/barista-run
+        with:
+          oauth-token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          app-token: ${{ steps.app-token.outputs.token }}
+          repo: ${{ github.repository }}
+          issue-number: ${{ steps.setup.outputs.number }}
+          event: ${{ github.event_name }}
+          comment-body: ${{ github.event.comment.body }}
+          comment-author: ${{ github.event.comment.user.login }}
+          prompt: "/barista-review REPO: ${{ github.repository }} PR_NUMBER: ${{ steps.setup.outputs.number }} EVENT: ${{ github.event_name }}"
+          model: ${{ vars.BARISTA_MODEL }}
+
+      - name: Append run-stats footer
+        if: always() && steps.run-barista.outcome == 'success'
+        uses: ./.github/actions/barista-append-stats
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          repo: ${{ github.repository }}
+          issue-number: ${{ steps.setup.outputs.number }}
+          execution-file: ${{ steps.run-barista.outputs.execution-file }}

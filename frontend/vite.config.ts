@@ -1,0 +1,58 @@
+import path from 'path'
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import istanbul from 'vite-plugin-istanbul'
+// Through the entry, not the bare `.js` sub-plugin: `vite/index.d.ts` is the
+// only typed surface here, so a deep import lands on an untyped module.
+import { lucideIcons } from './vite/index.js'
+
+const coverageEnabled = process.env.COVERAGE === 'true'
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    lucideIcons({
+      componentGlobs: [
+        'src/components/**/*.vue',
+        '!src/components/**/stories/*.vue',
+      ],
+    }),
+    
+    coverageEnabled &&
+      istanbul({
+        include: 'src/**/*',
+        exclude: [
+          'node_modules',
+          'src/**/*.cy.ts',
+          'src/**/*.spec.ts',
+          'src/**/*.test.ts',
+          'src/**/stories/**',
+        ],
+        extension: ['.js', '.ts', '.vue'],
+        cypress: true,
+        requireEnv: false,
+      }),
+  ],
+  resolve: {
+    alias: {
+      'tailwind.config.js': path.resolve(__dirname, 'tailwind.config.js'),
+    },
+  },
+  // 👇 INGA THAAN SERVER & PROXY ADD PANNUM
+  server: {
+    host: true, 
+    port: 5173,
+    proxy: {
+      '^/(app|api|assets|files)': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true,
+        headers: {
+          'Host': 'epc.localhost',
+        },
+      },
+    },
+  },
+  optimizeDeps: {
+    include: ['tailwind.config.js'],
+  },
+})

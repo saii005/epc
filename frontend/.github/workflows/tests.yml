@@ -1,0 +1,198 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+  actions: write
+  pull-requests: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run vitest with coverage
+        run: yarn test:coverage
+
+      - name: Upload Vitest coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-vitest
+          path: coverage/vitest
+          if-no-files-found: ignore
+
+  type-check:
+    runs-on: ubuntu-latest
+    name: Type Check
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      # Gates on zero errors, not on drift against the merge base. Scope is the
+      # shipped library: src, experimental, stories, mocks and the vitepress
+      # entry (tsconfig.app.json), plus the build and test configs
+      # (tsconfig.node.json). Cypress specs are the one project left out —
+      # `cy.mount()`'s component generics produce ~200 errors that are a
+      # cleanup of their own.
+      - name: Type-check the library
+        run: yarn type-check
+
+  docs-tables:
+    runs-on: ubuntu-latest
+    name: API Tables
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      # Compares the committed tables against a fresh run row by row, keyed by
+      # name. Row order is not compared: vue-component-meta returns props, emits
+      # and union members in checker-resolution order, which shifts with how
+      # much of the program is loaded.
+      - name: Check the API tables match the source
+        run: yarn docs:check
+
+  component-test:
+    runs-on: ubuntu-latest
+    name: Component Tests (Cypress) - ${{ matrix.containers }}
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2, 3]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Cache Cypress binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Run Component Tests
+        uses: cypress-io/github-action@v6
+        with:
+          component: true
+          build: 'yarn build'
+          start: 'yarn dev'
+          install: false
+        env:
+          COVERAGE: 'true'
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
+
+      - name: Upload Cypress screenshots if tests fail
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots-${{ matrix.containers }}
+          path: cypress/screenshots
+
+      - name: Upload Cypress coverage shard
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-cypress-${{ matrix.containers }}
+          path: coverage/cypress
+          if-no-files-found: ignore
+
+  coverage-report:
+    needs: [test, component-test]
+    if: always() && (needs.test.result == 'success' || needs.component-test.result == 'success')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Download Vitest coverage
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-vitest
+          path: coverage/vitest
+        continue-on-error: true
+
+      - name: Download Cypress coverage shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: coverage-cypress-*
+          path: coverage/cypress-shards
+        continue-on-error: true
+
+      - name: Merge Cypress shards
+        run: yarn tsx .github/scripts/merge-cypress-shards.ts
+
+      - name: Merge Vitest + Cypress
+        run: yarn coverage:merge
+
+      - name: Upload merged coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-final
+          path: coverage/final
+
+      - name: Upload coverage summary (for delta baseline)
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-summary
+          path: coverage/final/coverage-summary.json
+
+      # PR description edits run in a separate workflow_run-triggered workflow
+      # (see coverage-pr-comment.yml). That workflow has write access to the
+      # base repo even for fork PRs, which this one does not.
+      - name: Record PR number for follow-up workflow
+        if: github.event_name == 'pull_request'
+        run: echo "${{ github.event.pull_request.number }}" > pr-number.txt
+
+      - name: Upload PR info artifact
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-info
+          path: pr-number.txt

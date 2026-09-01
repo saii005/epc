@@ -1,0 +1,57 @@
+import { moduleSingleton } from './moduleSingleton'
+
+export interface FrappeUIConfig {
+  // Timezone configurations
+  systemTimezone?: string | null
+  localTimezone?: string | null
+
+  // Max upload size in bytes (apps usually source this from their boot data)
+  maxFileSize?: number | null
+
+  // Resource fetcher function
+  resourceFetcher?: (options: any) => Promise<any>
+
+  // Default API endpoints for document operations
+  defaultDocGetUrl?: string
+  defaultDocInsertUrl?: string
+  defaultDocUpdateUrl?: string
+  defaultDocDeleteUrl?: string
+  defaultRunDocMethodUrl?: string
+
+  // Default API endpoints for list operations
+  defaultListUrl?: string
+
+  // Error handling
+  fallbackErrorHandler?: (error: any) => void
+  serverMessagesHandler?: (messages: string[]) => void
+
+  // Base URL prepended to relative request URLs. Set this for local UI dev
+  // against a remote Frappe instance (cross-origin). When set, requests default
+  // to `credentials: 'include'` for cookie-based auth; if you use a token via
+  // `requestHeaders` instead, pass `credentials: 'omit'` per request.
+  requestBaseUrl?: string
+
+  // Extra headers merged into every frappeRequest. Either a static object or a
+  // function returning headers (useful for injecting an Authorization header,
+  // e.g. `token <key>:<secret>`).
+  requestHeaders?: Record<string, string> | (() => Record<string, string>)
+}
+
+// Apps call `setConfig` from their entry (a .ts module, so Vite may pre-bundle
+// it) while SFCs and composables read it back. A plain module-level object
+// splits across a duplicated copy of the package and `getConfig` returns null
+// on the side that never saw the writes — see moduleSingleton.
+const config = moduleSingleton<FrappeUIConfig>('config', () => ({}))
+
+export function setConfig<K extends keyof FrappeUIConfig>(
+  key: K,
+  value: FrappeUIConfig[K],
+): void {
+  config[key] = value
+}
+
+export function getConfig<K extends keyof FrappeUIConfig>(
+  key: K,
+): FrappeUIConfig[K] | null {
+  return config[key] ?? null
+}

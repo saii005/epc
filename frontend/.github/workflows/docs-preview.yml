@@ -1,0 +1,46 @@
+name: Docs Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-preview-build-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  build-preview:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build preview
+        run: >-
+          VITEPRESS_BASE=/pr-preview/pr-${{ github.event.pull_request.number }}/ yarn docs:build
+        env:
+          # The docs site has outgrown node's 4 GB default heap. The runner has
+          # 16 GB.
+          NODE_OPTIONS: --max-old-space-size=6144
+
+      - name: Upload preview artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-preview
+          path: docs/.vitepress/dist

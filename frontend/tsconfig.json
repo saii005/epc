@@ -1,0 +1,13 @@
+{
+  // Solution-style config: compiles nothing itself, just routes each file
+  // to the right project — app code (vitest globals), node-side configs,
+  // and Cypress specs (cypress globals). This is how colocated
+  // src/**/*.cy.ts files get Cypress types in the editor while staying
+  // excluded from the app project.
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" },
+    { "path": "./cypress/tsconfig.json" }
+  ]
+}

@@ -1,0 +1,259 @@
+{
+  "name": "frappe-ui",
+  "version": "1.0.0-beta.56",
+  "description": "A set of components and utilities for rapid UI development",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "type": "module",
+  "sideEffects": [
+    "**/*.css",
+    "**/*.vue",
+    "src/molecules/*/index.ts",
+    "src/charts/index.ts"
+  ],
+  "imports": {
+    "#components/*": "./src/components/*",
+    "#molecules/*": "./src/molecules/*",
+    "#composables/*": "./src/composables/*",
+    "#utils/*": "./src/utils/*"
+  },
+  "bin": {
+    "tokens-v2": "./tailwind/migrate-tokens-v2.js",
+    "shortcuts-v1": "./scripts/migrate-shortcuts-v1.js"
+  },
+  "scripts": {
+    "test": "vitest --run",
+    "test:coverage": "vitest --run --coverage",
+    "test:cypress": "cypress run --component",
+    "test:cypress:coverage": "cross-env COVERAGE=true cypress run --component",
+    "coverage": "yarn test:coverage && yarn test:cypress:coverage && yarn coverage:merge",
+    "coverage:merge": "tsx .github/scripts/merge-coverage.ts",
+    "type-check": "vue-tsc --noEmit -p tsconfig.app.json && vue-tsc --noEmit -p tsconfig.node.json",
+    "type-check:tsc": "tsc --noEmit -p tsconfig.app.json",
+    "format": "prettier -w ./src",
+    "bump-and-release": "yarn test && git pull --rebase origin main && yarn run release-patch",
+    "release-patch": "yarn version --patch && git push && git push --tags",
+    "bump-and-release-beta": "yarn test && git pull --rebase origin main && yarn run release-beta",
+    "release-beta": "yarn version --prerelease --preid beta && git push && git push --tags",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "docs:dev": "vitepress dev docs --host",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "docs:gen": "tsx docs/scripts/propsgen.ts",
+    "docs:gen:all": "yarn docs:gen --all",
+    "docs:check": "tsx docs/scripts/propsgen.ts --check",
+    "sync-tokens": "node tailwind/figma-tokens-to-theme.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./experimental": {
+      "import": "./experimental.ts",
+      "types": "./experimental.ts"
+    },
+    "./editor": {
+      "import": "./src/molecules/editor/index.ts",
+      "types": "./src/molecules/editor/index.ts"
+    },
+    "./list": {
+      "import": "./src/molecules/list/index.ts",
+      "types": "./src/molecules/list/index.ts"
+    },
+    "./charts": {
+      "import": "./src/charts/index.ts",
+      "types": "./src/charts/index.ts"
+    },
+    "./icons": {
+      "import": "./icons/index.ts"
+    },
+    "./tailwind": {
+      "import": "./tailwind/index.js",
+      "default": "./tailwind/index.js"
+    },
+    "./vite": {
+      "types": "./vite/index.d.ts",
+      "import": "./vite/index.js"
+    },
+    "./vite/lucideIconsPlugin": {
+      "import": "./vite/lucideIconsPlugin.js"
+    },
+    "./vitepress": {
+      "types": "./vitepress/index.d.ts",
+      "node": "./vitepress/index.node.ts",
+      "default": "./vitepress/index.ts"
+    },
+    "./style.css": {
+      "import": "./src/style.css"
+    },
+    "./tsconfig.base.json": {
+      "types": "./tsconfig.base.json",
+      "default": "./tsconfig.base.json"
+    }
+  },
+  "files": [
+    "src",
+    "vite",
+    "icons",
+    "tailwind",
+    "vitepress",
+    "scripts/migrate-shortcuts-v1.js",
+    "experimental",
+    "experimental.ts",
+    "tsconfig.base.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frappe/frappe-ui.git"
+  },
+  "author": "Frappe Technologies Pvt. Ltd.",
+  "license": "MIT",
+  "dependencies": {
+    "@codemirror/lang-css": "^6.3.0",
+    "@codemirror/lang-html": "^6.4.9",
+    "@codemirror/lang-javascript": "^6.2.2",
+    "@codemirror/lang-json": "^6.0.1",
+    "@codemirror/lang-markdown": "^6.3.1",
+    "@codemirror/lang-python": "^6.1.6",
+    "@codemirror/lang-sass": "^6.0.2",
+    "@codemirror/lang-sql": "^6.8.0",
+    "@codemirror/lang-xml": "^6.1.0",
+    "@codemirror/lang-yaml": "^6.1.3",
+    "@floating-ui/dom": "^1.7.4",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/line-clamp": "^0.4.4",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tiptap/core": "^3.26.0",
+    "@tiptap/extension-blockquote": "^3.26.0",
+    "@tiptap/extension-bold": "^3.26.0",
+    "@tiptap/extension-bubble-menu": "^3.26.0",
+    "@tiptap/extension-code": "^3.26.0",
+    "@tiptap/extension-code-block": "^3.26.0",
+    "@tiptap/extension-code-block-lowlight": "^3.26.0",
+    "@tiptap/extension-color": "^3.26.0",
+    "@tiptap/extension-document": "^3.26.0",
+    "@tiptap/extension-hard-break": "^3.26.0",
+    "@tiptap/extension-heading": "^3.26.0",
+    "@tiptap/extension-highlight": "^3.26.0",
+    "@tiptap/extension-horizontal-rule": "^3.26.0",
+    "@tiptap/extension-image": "^3.26.0",
+    "@tiptap/extension-italic": "^3.26.0",
+    "@tiptap/extension-link": "^3.26.0",
+    "@tiptap/extension-list": "^3.26.0",
+    "@tiptap/extension-mention": "^3.26.0",
+    "@tiptap/extension-node-range": "^3.26.0",
+    "@tiptap/extension-paragraph": "^3.26.0",
+    "@tiptap/extension-placeholder": "^3.26.0",
+    "@tiptap/extension-strike": "^3.26.0",
+    "@tiptap/extension-table": "^3.26.0",
+    "@tiptap/extension-task-item": "^3.26.0",
+    "@tiptap/extension-task-list": "^3.26.0",
+    "@tiptap/extension-text": "^3.26.0",
+    "@tiptap/extension-text-align": "^3.26.0",
+    "@tiptap/extension-text-style": "^3.26.0",
+    "@tiptap/extension-typography": "^3.26.0",
+    "@tiptap/extension-underline": "^3.26.0",
+    "@tiptap/extensions": "^3.26.0",
+    "@tiptap/markdown": "^3.26.0",
+    "@tiptap/pm": "^3.26.0",
+    "@tiptap/starter-kit": "^3.26.0",
+    "@tiptap/suggestion": "^3.26.0",
+    "@tiptap/vue-3": "^3.26.0",
+    "@vueuse/core": "^14.1.0",
+    "codemirror": "^6.0.1",
+    "dayjs": "^1.11.13",
+    "dompurify": "^3.4.0",
+    "echarts": "^6.1.0",
+    "es-module-lexer": "^1.7.0",
+    "fuzzysort": "^3.1.0",
+    "highlight.js": "^11.11.1",
+    "idb-keyval": "^6.2.0",
+    "lowlight": "^3.3.0",
+    "lucide-static": "^1.31.0",
+    "magic-string": "^0.30.21",
+    "marked": "^15.0.12",
+    "ora": "5.4.1",
+    "prettier": "^3.3.2",
+    "prosemirror-tables": "^1.8.1",
+    "reka-ui": "^2.9.9",
+    "slugify": "^1.6.6",
+    "socket.io-client": "^4.5.1",
+    "tippy.js": "^6.3.7",
+    "typescript": "^5.0.2",
+    "unplugin-auto-import": "^19.3.0",
+    "unplugin-icons": "^22.1.0",
+    "unplugin-vue-components": "^32.0.0",
+    "vue-sonner": "^2.0.9"
+  },
+  "peerDependencies": {
+    "vue": ">=3.5.0",
+    "vue-router": "^4.1.6"
+  },
+  "devDependencies": {
+    "@cypress/code-coverage": "^3.13.10",
+    "@vitejs/plugin-vue": "^6.0.7",
+    "@vitest/coverage-v8": "^3.2.4",
+    "autoprefixer": "^10.4.13",
+    "cross-env": "^7.0.3",
+    "cypress": "^15.8.2",
+    "cypress-split": "^1.24.28",
+    "jsdom": "^27.4.0",
+    "lint-staged": ">=10",
+    "msw": "^2.7.0",
+    "nyc": "^17.1.0",
+    "postcss": "^8.5.10",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "tailwindcss": "^3.2.7",
+    "tsx": "^4.20.6",
+    "vite": "^7.3.2",
+    "vite-plugin-istanbul": "^9.0.0",
+    "vitepress": "^2.0.0-alpha.15",
+    "vitest": "^3.2.4",
+    "vue": "^3.3.0",
+    "vue-component-meta": "^3.1.8",
+    "vue-router": "^4.1.6",
+    "vue-tsc": "^3.2.7"
+  },
+  "resolutions": {
+    "prosemirror-model": "1.25.7",
+    "prosemirror-state": "1.4.4",
+    "prosemirror-view": "1.41.8",
+    "prosemirror-transform": "1.12.0",
+    "@tiptap/extension-blockquote": "3.26.0",
+    "@tiptap/extension-bold": "3.26.0",
+    "@tiptap/extension-bullet-list": "3.26.0",
+    "@tiptap/extension-document": "3.26.0",
+    "@tiptap/extension-dropcursor": "3.26.0",
+    "@tiptap/extension-gapcursor": "3.26.0",
+    "@tiptap/extension-hard-break": "3.26.0",
+    "@tiptap/extension-horizontal-rule": "3.26.0",
+    "@tiptap/extension-italic": "3.26.0",
+    "@tiptap/extension-list-item": "3.26.0",
+    "@tiptap/extension-list-keymap": "3.26.0",
+    "@tiptap/extension-ordered-list": "3.26.0",
+    "@tiptap/extension-paragraph": "3.26.0",
+    "@tiptap/extension-strike": "3.26.0",
+    "@tiptap/extension-text": "3.26.0",
+    "@tiptap/extension-underline": "3.26.0",
+    "defu": "^6.1.5",
+    "esbuild": "^0.25.0",
+    "lodash": "^4.18.0",
+    "markdown-it": "^14.1.1",
+    "qs": "^6.14.2",
+    "rollup": "^4.59.0",
+    "socket.io-parser": "^4.2.6",
+    "systeminformation": "^5.31.6",
+    "ws": "^8.20.1",
+    "postcss": "^8.5.10",
+    "vite": "^7.3.2",
+    "picomatch": "^4.0.4",
+    "js-yaml": "^4.1.1"
+  },
+  "lint-staged": {
+    "*.{js,css,md,vue}": "prettier --write"
+  }
+}

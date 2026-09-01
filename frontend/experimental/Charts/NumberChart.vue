@@ -1,0 +1,58 @@
+<template>
+  <div
+    class="flex max-h-[140px] items-center gap-2 overflow-hidden bg-surface-base text-ink-gray-8 px-6 pt-5"
+    :class="config.delta ? 'pb-6' : 'pb-3'"
+  >
+    <slot name="body">
+      <div class="flex w-full flex-col">
+        <slot name="title">
+          <span class="truncate text-sm-medium text-ink-gray-5">
+            {{ config.title }}
+          </span>
+        </slot>
+        <slot name="subtitle" v-bind="{ formatValue }">
+          <div
+            class="flex flex-1 items-center gap-0.5 flex-shrink-0 truncate text-[24px] text-ink-gray-6 font-semibold leading-10"
+          >
+            <div
+              v-if="config.prefix"
+              v-html="config.prefix"
+              class="size-4 table"
+            />
+            {{ formatValue(config.value, 1, true) }}{{ config.suffix }}
+          </div>
+        </slot>
+        <slot name="delta" v-bind="{ formatValue }">
+          <div
+            v-if="config.delta"
+            class="flex items-center gap-0.5 text-xs-medium"
+            :class="[
+              config.negativeIsBetter
+                ? config.delta >= 0
+                  ? 'text-ink-red-7'
+                  : 'text-ink-green-5'
+                : config.delta >= 0
+                  ? 'text-ink-green-5'
+                  : 'text-ink-red-7',
+            ]"
+          >
+            <span class="">
+              {{ config.delta >= 0 ? '↑' : '↓' }}
+            </span>
+            <span>
+              {{ config.deltaPrefix }}{{ formatValue(config.delta, 1, true)
+              }}{{ config.deltaSuffix }}
+            </span>
+          </div>
+        </slot>
+      </div>
+    </slot>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { formatValue } from './helpers'
+import { NumberChartConfig } from './types'
+
+defineProps<{ config: NumberChartConfig }>()
+</script>

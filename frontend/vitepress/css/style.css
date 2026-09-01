@@ -1,0 +1,214 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Copy of the rule in src/style.css, which this stylesheet replaces rather
+   than imports — the docs theme is self-contained. `useColorScheme` stamps
+   `.no-transition` on <html> for the two frames around a light/dark swap, so
+   the transitioning surfaces don't all cross-fade at once. Keep both in sync. */
+.no-transition *,
+.no-transition *::before,
+.no-transition *::after {
+  transition: none !important;
+}
+
+/* Inter variable font, bundled so the docs theme is self-contained */
+@font-face {
+  font-family: 'InterVar';
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+  src: url('./fonts/Inter.var.woff2') format('woff2-variations');
+}
+@font-face {
+  font-family: 'InterVar';
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: italic;
+  src: url('./fonts/Inter-Italic.var.woff2') format('woff2-variations');
+}
+
+/* Anchor jumps (#heading links, "On this page") would otherwise land the
+   heading under the 3rem sticky navbar. */
+html {
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background-color: var(--surface-base);
+  color: var(--ink-gray-9);
+  @apply text-base;
+  font-family: InterVar, Inter, sans-serif;
+  font-optical-sizing: auto;
+
+  padding-right: 0 !important;
+  overflow-y: scroll !important;
+}
+
+.iconlink {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+code {
+  font-family: monospace;
+  @apply !text-xs;
+}
+
+[class*='language'] {
+  position: relative;
+
+  .lang {
+    @apply hidden;
+  }
+
+  .copy {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='rgba(128,128,128,1)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Crect width='8' height='4' x='8' y='2' rx='1' ry='1'/%3E%3Cpath d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/%3E%3C/svg%3E");
+    background-size: 16px;
+    background-position: 50% center;
+    background-repeat: no-repeat;
+    transition:
+      border-color 0.25s ease 0s,
+      background-color 0.25s ease 0s,
+      opacity 0.25s ease 0s;
+    @apply absolute top-2 right-2 h-8 w-8 bg-inherit;
+  }
+
+  .copied {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzg4ODg4OCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiIGQ9Ik0yMCA2TDkgMTdsLTUtNSIvPjwvc3ZnPg==');
+  }
+}
+
+.shiki {
+  @apply max-h-[500px] w-full overflow-auto leading-relaxed rounded-4;
+  @apply !p-3 !py-3 sm:!p-5 sm:!py-4 !bg-surface-gray-1 dark:!bg-transparent dark:border;
+
+  font-family: monospace;
+  .line-number {
+    @apply text-gray-500 pr-3 select-none;
+  }
+
+  .highlighted {
+    @apply bg-blue-900/30;
+  }
+}
+
+/* shiki blocks rendered inside a component preview (no rounded corners,
+   no inner top border, since the wrapper already provides them) */
+.component-preview-code .shiki {
+  @apply !rounded-none dark:!border-0;
+}
+
+.shiki span {
+  color: var(--shiki-light, inherit);
+}
+
+[data-theme='dark'] .shiki span {
+  color: var(--shiki-dark, inherit);
+}
+
+/* scrollbar */
+:root {
+  --scrollbar-size: 4px;
+
+  --scrollbar-thumb: var(--surface-gray-3);
+  --scrollbar-thumb-hover: var(--surface-gray-4);
+
+  --shiki-thumb: var(--surface-gray-4);
+}
+
+[data-theme='dark'] {
+  --scrollbar-thumb: var(--surface-gray-2);
+  --scrollbar-thumb-hover: var(--surface-gray-3);
+
+  --shiki-track: var(--surface-elevation-1);
+  --shiki-thumb: var(--surface-gray-3);
+}
+
+.shiki {
+  scrollbar-width: thin;
+  scrollbar-color: var(--shiki-thumb) transparent;
+}
+
+.shiki::-webkit-scrollbar {
+  height: var(--scrollbar-size);
+}
+
+.shiki::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.shiki::-webkit-scrollbar-thumb {
+  background-color: var(--shiki-thumb);
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+/* reusable everywhere */
+.scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+/* WebKit */
+.scrollbar::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+
+/* doc typography */
+.docs {
+  code:not(pre code) {
+    @apply text-sm rounded-1 bg-surface-gray-3 dark:bg-surface-gray-2 p-0.5 px-1;
+  }
+}
+
+.font-news {
+  font-family: 'Newsreader', serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* Equal-width Before/After columns for the migration guide tables. */
+.migration-page table {
+  table-layout: fixed;
+  width: 100%;
+}
+.migration-page th,
+.migration-page td {
+  width: 50%;
+}
+
+/* Per-page opt-in (`tableFirstCol` frontmatter): pin every table's first
+   column to one width so stacked tables line up. Width comes from the inline
+   --docs-first-col var the layout sets from frontmatter. */
+.align-tables table {
+  table-layout: fixed;
+  width: 100%;
+}
+.align-tables th:first-child,
+.align-tables td:first-child {
+  width: var(--docs-first-col);
+}
+
+/* The article's `prose-p:mb-4` leaks into editor previews (they escape `.not-prose`
+   to keep prose-v3). Restore prose-v3's zero paragraph margin inside the editor. */
+[data-slot='editor-content'] p {
+  margin-bottom: 0;
+}

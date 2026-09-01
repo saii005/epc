@@ -1,0 +1,51 @@
+/*
+ * Popover open/close motion for the components that still render their own
+ * content-body instead of the shared `PopoverPanel` (MultiSelect, TimePicker).
+ * Imported once per component from `<script setup>` so it is deduped at build
+ * time.
+ *
+ * All selectors are gated on `[data-selection]` (set on each component's
+ * content element) so this stylesheet cannot leak onto other popovers
+ * sharing the same `data-slot` hooks (e.g. Dropdown).
+ *
+ * One rhythm: `instant`. No scale, no translate — just a ~80ms opacity fade
+ * on open to mask reka's 1-frame position-settle after mount, and nothing on
+ * close. It matches `PopoverPanel`'s default, so these components open the
+ * same way as Select, Combobox and the date pickers.
+ *
+ * Each component still owns any component-specific reduced-motion overrides
+ * (e.g. Combobox's chevron transition).
+ */
+
+[data-slot='content'][data-selection] [data-slot='content-body'] {
+  animation-fill-mode: both;
+}
+
+[data-slot='content'][data-selection][data-state='open']
+  [data-slot='content-body'][data-motion='instant'] {
+  animation: selection-content-instant-fade 80ms linear;
+}
+
+[data-slot='content'][data-selection][data-state='closed']
+  [data-slot='content-body'][data-motion='instant'] {
+  animation: none;
+}
+
+[data-slot='content'][data-selection][data-state='closed'] {
+  pointer-events: none;
+}
+
+@keyframes selection-content-instant-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-slot='content'][data-selection] [data-slot='content-body'] {
+    animation-duration: 0ms !important;
+  }
+}

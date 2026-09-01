@@ -1,0 +1,236 @@
+@import './extensions/color/color-styles.css';
+@import './extensions/highlight/highlight-styles.css';
+
+.ProseMirror {
+  outline: none;
+  caret-color: var(--ink-gray-9);
+  word-break: break-word;
+}
+
+.ProseMirror-focused:focus-visible {
+  outline: none;
+}
+
+.ProseMirror:not(.ProseMirror-focused) p.is-editor-empty::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--ink-gray-4);
+  pointer-events: none;
+  height: 0;
+}
+
+.ProseMirror-selectednode video,
+img.ProseMirror-selectednode {
+  outline: 2px solid var(--outline-gray-2);
+}
+
+.table-of-contents-node {
+  padding: 0 10px;
+}
+
+/* Fast origin-aware appear for imperatively-mounted popups (useFloatingPopup).
+ * `transform-origin` is set inline from the resolved placement. */
+.editor-floating-pop {
+  animation: editor-floating-pop-in 90ms ease-out;
+}
+
+@keyframes editor-floating-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editor-floating-pop {
+    animation: none;
+  }
+}
+
+.table-of-contents-node li p {
+  width: fit-content;
+  padding: 0 3px;
+  border-radius: 4px;
+}
+
+.table-of-contents-node li p:hover {
+  background-color: var(--surface-gray-2);
+}
+
+.table-of-contents-node.ProseMirror-selectednode {
+  outline: 2px solid var(--outline-gray-2);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.ProseMirror ul[data-type='taskList'] {
+  list-style: none;
+  padding: 0;
+
+  li {
+    align-items: flex-start;
+    display: flex;
+    margin: 0;
+
+    > label {
+      flex: 0 0 auto;
+      margin-right: 0.5rem;
+      margin-top: 0.25rem;
+      height: 1lh;
+      display: flex;
+      align-items: center;
+      user-select: none;
+    }
+
+    > div {
+      flex: 1 1 auto;
+      margin-bottom: 0;
+
+      > p {
+        margin: 0.25rem 0;
+      }
+    }
+  }
+
+  ul[data-type='taskList'] {
+    margin: 0;
+  }
+
+  input[type='checkbox'] {
+    cursor: pointer;
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    color: var(--ink-gray-9);
+  }
+}
+
+.resize-cursor {
+  cursor: ew-resize;
+  cursor: col-resize;
+}
+
+.tag-item,
+.tag-suggestion-active {
+  background-color: var(--surface-gray-1, #f8f8f8);
+  color: inherit;
+  border: 1px solid transparent;
+  padding: 0px 2px;
+  border-radius: 4px;
+  font-size: 1em;
+  white-space: nowrap;
+  cursor: default;
+}
+
+.tag-item.ProseMirror-selectednode {
+  border-color: var(--outline-gray-3, #c7c7c7);
+}
+
+.tag-suggestion-active {
+  background-color: var(--surface-gray-2, #f3f3f3);
+}
+
+.ProseMirror table {
+  table-layout: fixed;
+}
+
+.ProseMirror td,
+.ProseMirror th {
+  padding: 0.5rem;
+  border: 1px solid var(--outline-gray-2);
+  position: relative;
+}
+
+.ProseMirror td p,
+.ProseMirror th p {
+  margin: 0;
+}
+
+.ProseMirror th {
+  background-color: var(--surface-gray-2);
+}
+
+/* Spreadsheet-style active cell: prosemirror-tables adds `.selectedCell` to the
+   navigated cell (or a multi-cell selection). Overlay a translucent fill (keeps
+   text readable) + ring, applied instantly — no transition. `::after` rides the
+   cell's `position: relative`. */
+.ProseMirror .selectedCell::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 2;
+  box-shadow: inset 0 0 0 1.2px var(--surface-gray-8);
+}
+
+/* Multi-cell selection: drop the per-cell ring (keep the fill, so adjacent
+   cells merge into one tinted region) and let `.table-selection-box` draw a
+   single box around the whole selection (see table-selection-overlay.ts). */
+.ProseMirror.table-cell-range .selectedCell::after {
+  box-shadow: none;
+}
+
+.ProseMirror .table-selection-box {
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+  border-radius: 2px;
+  inset: -1px;
+  box-shadow: inset 0 0 0 1.2px var(--surface-gray-8);
+}
+
+/* Links underline via `border-bottom` (see prose-v3 `a` in tailwind/plugin.js),
+   whose color is fixed and ignores the text `color`. When a link wraps named-
+   color text, drop that gray border (incl. on hover) and let the colored span
+   carry the underline in `currentColor`, so the line matches the text color.
+   Compound `.prose-v3.ProseMirror` (both classes are on the editor element) so
+   these win over the legacy TextEditor's `a span[style]` underline, which may
+   still be loaded alongside this stylesheet. */
+.prose-v3.ProseMirror a:has(span[style*='--prose-color-']),
+.prose-v3.ProseMirror a:has(span[style*='--prose-color-']):hover {
+  border-bottom-color: transparent;
+}
+
+.prose-v3.ProseMirror a span[style*='--prose-color-'] {
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.ProseMirror .tableWrapper {
+  /* Scroll a too-wide table inside its own bounds instead of letting it push
+     past the content column (every editor ancestor is overflow: visible). */
+  max-width: 100%;
+  overflow-x: auto;
+  /* Positioning context for the single-box multi-cell selection overlay. */
+  position: relative;
+  /* Keep the selection z-indexes below (`.selectedCell::after`,
+     `.table-selection-box`) local to the table. `position: relative` with
+     `z-index: auto` does NOT open a stacking context, so without this those
+     values compete with whatever the host app stacks around the editor — e.g.
+     Gameplan's sticky comment header (`z-[1]`), which the selection box then
+     painted straight over. */
+  isolation: isolate;
+}
+
+.prose-v3.ProseMirror[contenteditable='false']
+  p:has(> br.ProseMirror-trailingBreak:only-child),
+.ProseMirror[contenteditable='false']
+  .prose-v3
+  p:has(> br.ProseMirror-trailingBreak:only-child) {
+  line-height: 20px;
+}
+
+.prose-v3 blockquote {
+  border-inline-start-width: 2px;
+}
+
+/* Drop indicator (prosemirror-dropcursor): a rounded bar instead of the
+   default hairline. Width/color are set via EditorDropcursor in extensions.ts. */
+.editor-drop-cursor {
+  border-radius: 9999px;
+}

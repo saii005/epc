@@ -1,0 +1,55 @@
+/*
+ * Open/close motion for the shared `PopoverPanel` shell. Imported once by
+ * `PopoverPanel.vue` so it is deduped at build time — consumers never import
+ * it directly.
+ *
+ * Every selector is gated on the compound `[data-slot='content-body'][data-panel]`
+ * so this stylesheet only applies to `PopoverPanel` instances and cannot leak
+ * onto other popovers sharing the `data-slot` hooks (e.g. Dropdown's
+ * `.menu-content`, or the legacy selection `popoverMotion.css`).
+ *
+ * `data-state` is read from one of two places, so the panel is drop-in for
+ * either wiring style:
+ *   1. the panel element itself, when the consumer passes the `state` prop
+ *      (fully self-contained — preferred for new code), or
+ *   2. an ancestor reka `*Content` carrying `data-state`, when the consumer
+ *      omits `state` and relies on reka's own state (matches how the legacy
+ *      selection stylesheet worked).
+ * `data-motion` always lives on the panel element.
+ *
+ * One rhythm, and nothing scales. A ~80ms opacity fade runs on open to mask
+ * reka's 1-frame position-settle after mount, and nothing runs on close. A
+ * panel appears at a fixed spot with no origin to grow from, so an entrance
+ * only puts motion between the press and the content.
+ */
+
+[data-slot='content-body'][data-panel] {
+  animation-fill-mode: both;
+}
+
+[data-slot='content-body'][data-panel][data-motion='instant'][data-state='open'],
+[data-state='open']
+  [data-slot='content-body'][data-panel][data-motion='instant'] {
+  animation: popover-panel-instant-fade 80ms linear;
+}
+
+[data-slot='content-body'][data-panel][data-motion='instant'][data-state='closed'],
+[data-state='closed']
+  [data-slot='content-body'][data-panel][data-motion='instant'] {
+  animation: none;
+}
+
+@keyframes popover-panel-instant-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-slot='content-body'][data-panel] {
+    animation-duration: 0ms !important;
+  }
+}

@@ -1,0 +1,173 @@
+<template>
+  <div class="flex min-w-0 items-center" ref="crumbsRef">
+    <template v-if="overflowedX && items.length > 2">
+      <Dropdown class="h-7" :options="dropdownItems">
+        <Button variant="ghost">
+          <template #icon>
+            <span class="lucide-ellipsis size-4 text-ink-gray-5" />
+          </template>
+        </Button>
+      </Dropdown>
+      <span class="ml-1 mr-0.5 text-base text-ink-gray-4" aria-hidden="true">
+        /
+      </span>
+    </template>
+
+    <div class="flex min-w-0 items-center text-ellipsis whitespace-nowrap">
+      <template v-for="(item, i) in crumbs" :key="item.label">
+        <router-link
+          v-if="item.route"
+          :to="item.route"
+          @click="item.onClick?.($event)"
+          class="flex items-center rounded-4 px-0.5 py-1 text-lg-medium"
+          :class="[
+            i == crumbs.length - 1
+              ? 'min-w-0 text-ink-gray-9'
+              : 'text-ink-gray-5 hover:text-ink-gray-7',
+          ]"
+        >
+          <slot name="prefix" :item="item" />
+          <span
+            :class="i == crumbs.length - 1 && 'min-w-0 truncate'"
+            :title="i == crumbs.length - 1 ? item.label : undefined"
+          >
+            {{ item.label }}
+          </span>
+          <slot name="suffix" :item="item" />
+        </router-link>
+        <a
+          v-else-if="item.href"
+          :href="item.href"
+          @click="onLinkClick(item, $event)"
+          class="flex items-center rounded-4 px-0.5 py-1 text-lg-medium"
+          :class="[
+            i == crumbs.length - 1
+              ? 'min-w-0 text-ink-gray-9'
+              : 'text-ink-gray-5 hover:text-ink-gray-7',
+          ]"
+        >
+          <slot name="prefix" :item="item" />
+          <span
+            :class="i == crumbs.length - 1 && 'min-w-0 truncate'"
+            :title="i == crumbs.length - 1 ? item.label : undefined"
+          >
+            {{ item.label }}
+          </span>
+          <slot name="suffix" :item="item" />
+        </a>
+        <button
+          v-else
+          @click="item.onClick?.($event)"
+          class="flex items-center rounded-4 px-0.5 py-1 text-lg-medium"
+          :class="[
+            i == crumbs.length - 1
+              ? 'min-w-0 text-ink-gray-9'
+              : 'text-ink-gray-5 hover:text-ink-gray-7',
+          ]"
+        >
+          <slot name="prefix" :item="item" />
+          <span
+            :class="i == crumbs.length - 1 && 'min-w-0 truncate'"
+            :title="i == crumbs.length - 1 ? item.label : undefined"
+          >
+            {{ item.label }}
+          </span>
+          <slot name="suffix" :item="item" />
+        </button>
+        <span
+          v-if="i != crumbs.length - 1"
+          class="mx-0.5 text-base text-ink-gray-4"
+          aria-hidden="true"
+        >
+          /
+        </span>
+      </template>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+import { Dropdown } from '../Dropdown'
+import { Button } from '../Button'
+import type { BreadcrumbsProps } from './types'
+import { ref, computed, nextTick, useTemplateRef } from 'vue'
+import { useResizeObserver } from '@vueuse/core'
+import type { BreadcrumbItem } from './types'
+
+const crumbsEl = useTemplateRef<HTMLDivElement>('crumbsRef')
+
+const props = defineProps<BreadcrumbsProps>()
+
+const router = useRouter()
+const overflowedX = ref(false)
+
+const items = computed(() => {
+  return (props.items || []).filter(Boolean)
+})
+
+const checkOverflow = () => {
+  if (!crumbsEl.value) return
+
+  // tmp show all items to measure item width
+  overflowedX.value = false
+
+  nextTick(() => {
+    const scrollWidth = crumbsEl.value?.scrollWidth || 0
+    const clientWidth = crumbsEl.value?.clientWidth || 0
+    overflowedX.value = scrollWidth > clientWidth
+  })
+}
+
+useResizeObserver(crumbsEl, checkOverflow)
+
+const dropdownItems = computed(() => {
+  let allExceptLastTwo = items.value.slice(0, -2)
+  return allExceptLastTwo.map((item) => {
+    let onClick = () => {
+      if (item.onClick) {
+        item.onClick()
+      }
+      if (item.route) {
+        router.push(item.route)
+      }
+    }
+    return {
+      ...item,
+      icon: null,
+      label: item.label,
+      onClick,
+    }
+  })
+})
+
+const crumbs = computed(() => items.value.slice(overflowedX.value ? -2 : 0))
+
+function isModifiedClick(event: MouseEvent) {
+  return (
+    event.metaKey ||
+    event.ctrlKey ||
+    event.shiftKey ||
+    event.altKey ||
+    event.button !== 0
+  )
+}
+
+// An item may set both `href` and `onClick`, so the crumb keeps a real URL for
+// new-tab clicks and "copy link address" while `onClick` does the in-app
+// navigation. Modified clicks stay with the browser.
+function onLinkClick(item: BreadcrumbItem, event: MouseEvent) {
+  if (!item.onClick) return
+  if (isModifiedClick(event)) return
+  event.preventDefault()
+  item.onClick(event)
+}
+
+defineSlots<{
+  /** Content shown before each breadcrumb label */
+  prefix?: (props: { item: BreadcrumbItem }) => any
+
+  /** Content shown after each breadcrumb label */
+  suffix?: (props: { item: BreadcrumbItem }) => any
+}>()
+</script>
