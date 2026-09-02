@@ -2,8 +2,6 @@ import path from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import istanbul from 'vite-plugin-istanbul'
-// Through the entry, not the bare `.js` sub-plugin: `vite/index.d.ts` is the
-// only typed surface here, so a deep import lands on an untyped module.
 import { lucideIcons } from './vite/index.js'
 
 const coverageEnabled = process.env.COVERAGE === 'true'
@@ -17,7 +15,6 @@ export default defineConfig({
         '!src/components/**/stories/*.vue',
       ],
     }),
-    
     coverageEnabled &&
       istanbul({
         include: 'src/**/*',
@@ -35,12 +32,12 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
+      '@': path.resolve(__dirname, 'src'),
       'tailwind.config.js': path.resolve(__dirname, 'tailwind.config.js'),
     },
   },
-  // 👇 INGA THAAN SERVER & PROXY ADD PANNUM
   server: {
-    host: true, 
+    host: true,
     port: 5173,
     proxy: {
       '^/(app|api|assets|files)': {
@@ -52,6 +49,13 @@ export default defineConfig({
       },
     },
   },
+  // 🌟 PRODUCTION BUILD SETTINGS
+  build: {
+    outDir: '../epc/public/frontend',
+    emptyOutDir: true,
+    target: 'es2015',
+  },
+  base: '/assets/epc/frontend/',
   optimizeDeps: {
     include: ['tailwind.config.js'],
   },
