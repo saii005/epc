@@ -1,0 +1,218 @@
+{
+ "app": "epc",
+ "charts": [],
+ "content": "[{\"id\": \"4ea7f441b8\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Quick Operations</b></span>\", \"col\": 12}}, {\"id\": \"51ee94ffca\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Projects\", \"col\": 3}}, {\"id\": \"a79ce5b39f\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"RA Bills\", \"col\": 3}}, {\"id\": \"a1e4009578\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Daily Progress (DPR)\", \"col\": 3}}, {\"id\": \"6763a781e7\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Quality (NCR)\", \"col\": 3}}, {\"id\": \"f719cdafa6\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"8830e6bdd3\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>EPC Modules & Masters</b></span>\", \"col\": 12}}, {\"id\": \"eb66f97565\", \"type\": \"card\", \"data\": {\"card_name\": \"Projects & Work Breakdown\", \"col\": 4}}, {\"id\": \"9969e46e1a\", \"type\": \"card\", \"data\": {\"card_name\": \"Commercials & Billing\", \"col\": 4}}, {\"id\": \"3159c0283f\", \"type\": \"card\", \"data\": {\"card_name\": \"Site Operations & Quality\", \"col\": 4}}, {\"id\": \"76d05c1854\", \"type\": \"card\", \"data\": {\"card_name\": \"Supply Chain & Procurement\", \"col\": 4}}]",
+ "creation": "2026-09-02 16:55:21.190114",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "project",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "EPC Organization",
+ "link_type": "DocType",
+ "links": [
+  {
+   "hidden": 0,
+   "icon": "project",
+   "is_query_report": 0,
+   "label": "Projects & Work Breakdown",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Project",
+   "link_count": 0,
+   "link_to": "EPC Project",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC WBS Element",
+   "link_count": 0,
+   "link_to": "EPC WBS Element",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Business Unit",
+   "link_count": 0,
+   "link_to": "EPC Business Unit",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "credit-card",
+   "is_query_report": 0,
+   "label": "Commercials & Billing",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Running Account Bill",
+   "link_count": 0,
+   "link_to": "EPC Running Account Bill",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC BOQ",
+   "link_count": 0,
+   "link_to": "EPC BOQ",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "tool",
+   "is_query_report": 0,
+   "label": "Site Operations & Quality",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Daily Progress Report",
+   "link_count": 0,
+   "link_to": "EPC Daily Progress Report",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Non Conformance Report",
+   "link_count": 0,
+   "link_to": "EPC Non Conformance Report",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "package",
+   "is_query_report": 0,
+   "label": "Supply Chain & Procurement",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Material Requisition",
+   "link_count": 0,
+   "link_to": "EPC Material Requisition",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Purchase Order",
+   "link_count": 0,
+   "link_to": "EPC Purchase Order",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Goods Receipt Note",
+   "link_count": 0,
+   "link_to": "EPC Goods Receipt Note",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Vendor",
+   "link_count": 0,
+   "link_to": "EPC Vendor",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-09-02 17:21:20.916142",
+ "modified_by": "Administrator",
+ "module": "EPC Organization",
+ "name": "EPC Organization",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "doc_view": "",
+   "label": "Projects",
+   "link_to": "EPC Project",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "",
+   "label": "RA Bills",
+   "link_to": "EPC Running Account Bill",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "doc_view": "",
+   "label": "Daily Progress (DPR)",
+   "link_to": "EPC Daily Progress Report",
+   "type": "DocType"
+  },
+  {
+   "color": "Red",
+   "doc_view": "",
+   "label": "Quality (NCR)",
+   "link_to": "EPC Non Conformance Report",
+   "type": "DocType"
+  },
+  {
+   "color": "Cyan",
+   "doc_view": "",
+   "label": "Purchase Orders",
+   "link_to": "EPC Purchase Order",
+   "type": "DocType"
+  }
+ ],
+ "title": "EPC Organization",
+ "type": "Workspace"
+}

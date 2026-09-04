@@ -1,0 +1,86 @@
+{
+ "app": "epc",
+ "charts": [],
+ "content": "[{\"id\": \"752d0f04f9\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Projects & WBS Dashboard</b></span>\", \"col\": 12}}, {\"id\": \"1294009b70\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"EPC Projects\", \"col\": 4}}, {\"id\": \"11a408a790\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"WBS Elements\", \"col\": 4}}, {\"id\": \"50c4ae3b38\", \"type\": \"card\", \"data\": {\"card_name\": \"Masters\", \"col\": 6}}]",
+ "creation": "2026-09-02 17:27:20.704038",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "project",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Projects & WBS",
+ "link_type": "DocType",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Masters",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Project",
+   "link_count": 0,
+   "link_to": "EPC Project",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC WBS Element",
+   "link_count": 0,
+   "link_to": "EPC WBS Element",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Business Unit",
+   "link_count": 0,
+   "link_to": "EPC Business Unit",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-09-02 17:27:20.704038",
+ "modified_by": "Administrator",
+ "module": "EPC Organization",
+ "name": "Projects & WBS",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "EPC Organization",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "doc_view": "",
+   "label": "EPC Projects",
+   "link_to": "EPC Project",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "",
+   "label": "WBS Elements",
+   "link_to": "EPC WBS Element",
+   "type": "DocType"
+  }
+ ],
+ "title": "Projects & WBS",
+ "type": "Workspace"
+}

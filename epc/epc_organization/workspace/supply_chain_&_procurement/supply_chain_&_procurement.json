@@ -1,0 +1,96 @@
+{
+ "app": "epc",
+ "charts": [],
+ "content": "[{\"id\": \"067e2cb782\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Supply Chain & Procurement Dashboard</b></span>\", \"col\": 12}}, {\"id\": \"ade3138bf1\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Purchase Orders\", \"col\": 4}}, {\"id\": \"845354adfd\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Material Requisitions\", \"col\": 4}}, {\"id\": \"9655875e3d\", \"type\": \"card\", \"data\": {\"card_name\": \"Procurement & Stock\", \"col\": 6}}]",
+ "creation": "2026-09-02 17:27:24.138656",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "package",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Supply Chain & Procurement",
+ "link_type": "DocType",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Procurement & Stock",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Material Requisition",
+   "link_count": 0,
+   "link_to": "EPC Material Requisition",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Purchase Order",
+   "link_count": 0,
+   "link_to": "EPC Purchase Order",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Goods Receipt Note",
+   "link_count": 0,
+   "link_to": "EPC Goods Receipt Note",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Vendor",
+   "link_count": 0,
+   "link_to": "EPC Vendor",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-09-02 17:27:24.138656",
+ "modified_by": "Administrator",
+ "module": "EPC Organization",
+ "name": "Supply Chain & Procurement",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "EPC Organization",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 4.0,
+ "shortcuts": [
+  {
+   "color": "Cyan",
+   "doc_view": "",
+   "label": "Purchase Orders",
+   "link_to": "EPC Purchase Order",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "",
+   "label": "Material Requisitions",
+   "link_to": "EPC Material Requisition",
+   "type": "DocType"
+  }
+ ],
+ "title": "Supply Chain & Procurement",
+ "type": "Workspace"
+}

@@ -162,3 +162,22 @@ def get_project_details(project_name):
     except Exception as e:
         frappe.log_error(title="Get Project Details Error", message=frappe.get_traceback())
         return {"success": False, "error": str(e)}
+
+
+@frappe.whitelist(allow_guest=True)
+def get_project_evm_analytics(project_name):
+    """
+    🌟 S-Curve and EVM (Earned Value Management) Health Analytics API
+    """
+    try:
+        if not project_name:
+            return {"error": "Project Name is required"}
+            
+        doc = frappe.get_doc("EPC Project", project_name)
+        return {
+            "success": True,
+            "metrics": doc.get_evm_analytics()
+        }
+    except Exception as e:
+        frappe.log_error(title="EVM Analytics Error", message=frappe.get_traceback())
+        return {"success": False, "error": str(e)}

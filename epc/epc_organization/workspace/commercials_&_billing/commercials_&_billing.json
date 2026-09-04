@@ -1,0 +1,76 @@
+{
+ "app": "epc",
+ "charts": [],
+ "content": "[{\"id\": \"8093873563\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Commercials & Billing Dashboard</b></span>\", \"col\": 12}}, {\"id\": \"196bbc7d0c\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"RA Bills\", \"col\": 4}}, {\"id\": \"096462757b\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"BOQ Estimates\", \"col\": 4}}, {\"id\": \"1d3bdff982\", \"type\": \"card\", \"data\": {\"card_name\": \"Billing & Estimations\", \"col\": 6}}]",
+ "creation": "2026-09-02 17:27:24.113045",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "credit-card",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Commercials & Billing",
+ "link_type": "DocType",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Billing & Estimations",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Running Account Bill",
+   "link_count": 0,
+   "link_to": "EPC Running Account Bill",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC BOQ",
+   "link_count": 0,
+   "link_to": "EPC BOQ",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-09-02 17:27:24.113045",
+ "modified_by": "Administrator",
+ "module": "EPC Organization",
+ "name": "Commercials & Billing",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "EPC Organization",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 2.0,
+ "shortcuts": [
+  {
+   "color": "Green",
+   "doc_view": "",
+   "label": "RA Bills",
+   "link_to": "EPC Running Account Bill",
+   "type": "DocType"
+  },
+  {
+   "color": "Cyan",
+   "doc_view": "",
+   "label": "BOQ Estimates",
+   "link_to": "EPC BOQ",
+   "type": "DocType"
+  }
+ ],
+ "title": "Commercials & Billing",
+ "type": "Workspace"
+}

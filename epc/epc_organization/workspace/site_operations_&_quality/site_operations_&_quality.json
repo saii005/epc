@@ -1,0 +1,76 @@
+{
+ "app": "epc",
+ "charts": [],
+ "content": "[{\"id\": \"acbde5dd34\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Site Operations & Quality Dashboard</b></span>\", \"col\": 12}}, {\"id\": \"4e6d61d9d1\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Daily Progress (DPR)\", \"col\": 4}}, {\"id\": \"5ad0505af8\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Quality (NCR)\", \"col\": 4}}, {\"id\": \"d82d106bc5\", \"type\": \"card\", \"data\": {\"card_name\": \"Execution & QA/QC\", \"col\": 6}}]",
+ "creation": "2026-09-02 17:27:24.129616",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "tool",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Site Operations & Quality",
+ "link_type": "DocType",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Execution & QA/QC",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Daily Progress Report",
+   "link_count": 0,
+   "link_to": "EPC Daily Progress Report",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "EPC Non Conformance Report",
+   "link_count": 0,
+   "link_to": "EPC Non Conformance Report",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-09-02 17:27:24.129616",
+ "modified_by": "Administrator",
+ "module": "EPC Organization",
+ "name": "Site Operations & Quality",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "EPC Organization",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 3.0,
+ "shortcuts": [
+  {
+   "color": "Orange",
+   "doc_view": "",
+   "label": "Daily Progress (DPR)",
+   "link_to": "EPC Daily Progress Report",
+   "type": "DocType"
+  },
+  {
+   "color": "Red",
+   "doc_view": "",
+   "label": "Quality (NCR)",
+   "link_to": "EPC Non Conformance Report",
+   "type": "DocType"
+  }
+ ],
+ "title": "Site Operations & Quality",
+ "type": "Workspace"
+}

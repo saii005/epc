@@ -78,8 +78,7 @@
   },
   {
    "fieldname": "cb_progress",
-   "fieldtype": "Column Break",
-   "label": "Column Break"
+   "fieldtype": "Column Break"
   },
   {
    "fieldname": "weightage",
@@ -103,7 +102,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-08-31 11:57:07.892031",
+ "modified": "2026-09-02 13:54:06.676639",
  "modified_by": "Administrator",
  "module": "EPC Organization",
  "name": "EPC WBS Element",

@@ -148,7 +148,11 @@ app_license = "mit"
 
 # Scheduled Tasks
 # ---------------
-
+scheduler_events = {
+	"daily": [
+		"epc.tasks.daily_epc_site_audit"
+	]
+}
 # scheduler_events = {
 # 	"all": [
 # 		"epc.tasks.all"
